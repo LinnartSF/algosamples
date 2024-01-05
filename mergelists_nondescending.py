@@ -6,33 +6,22 @@ def merge(self, nums1, m, nums2, n) -> list:
     :type n: int
     :rtype: None Do not return anything, modify nums1 in-place instead.
     """
+    i = m - 1  # nums1's index (the actual nums)
+    j = n - 1  # nums2's index
+    k = m + n - 1  # nums1's index (the next filled position)
 
-    for j in range(n):
-            
-        if m+j == 0:
-
-            nums1.insert(0, nums2[j])
-            nums1.pop(-1)
+    while j >= 0:
+    
+        if i >= 0 and nums1[i] > nums2[j]:
+        
+            nums1[k] = nums1[i]
+            k -= 1
+            i -= 1
         
         else:
-        
-            for i in range(m+j+1):
-
-                if nums2[j] <= nums1[i]:
-
-                    nums1.insert(i, nums2[j])
-                    nums1.pop(-1)
-                    break
             
-                elif i < m+j and nums1[i+1] < nums1[i]:
-                    
-                    nums1.insert(i+1, nums2[j])
-                    nums1.pop(-1)
-                    break
-            
-                elif i == m+j:
-                    
-                    nums1.insert(i, nums2[j])
-                    nums1.pop(-1)
-                    break
-  return nums1
+            nums1[k] = nums2[j]
+            k -= 1
+            j -= 1
+    
+    return nums2
